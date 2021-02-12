@@ -42,32 +42,31 @@ arDates = [
   { date: "1_25", arPeriod: "A 6/7", rotationDay: "B" },
   { date: "1_26", arPeriod: "B 6/7", rotationDay: "C" },
   { date: "2_1", arPeriod: "C 6/7", rotationDay: "A" },
-  { date: "2_2", arPeriod: "C 6/7", rotationDay: "A" },
-  { date: "2_3", arPeriod: "A 1/2", rotationDay: "B" },
-  { date: "2_4", arPeriod: "B 1/2", rotationDay: "C" },
-  { date: "2_5", arPeriod: "C 1/2", rotationDay: "A" },
-  { date: "2_8", arPeriod: "A 4/5", rotationDay: "B" },
-  { date: "2_9", arPeriod: "B 4/5", rotationDay: "C" },
-  { date: "2_10", arPeriod: "C 4/5", rotationDay: "A" },
-  { date: "2_11", arPeriod: "A 6/7", rotationDay: "B" },
-  { date: "2_12", arPeriod: "B 6/7", rotationDay: "C" },
-  { date: "2_13", arPeriod: "C 6/7", rotationDay: "A" },
+  { date: "2_2", arPeriod: "A 1/2", rotationDay: "B" },
+  { date: "2_3", arPeriod: "B 1/2", rotationDay: "C" },
+  { date: "2_4", arPeriod: "C 1/2", rotationDay: "A" },
+  { date: "2_5", arPeriod: "A 4/5", rotationDay: "B" },
+  { date: "2_8", arPeriod: "B 4/5", rotationDay: "C" },
+  { date: "2_9", arPeriod: "C 4/5", rotationDay: "A" },
+  { date: "2_10", arPeriod: "A 6/7", rotationDay: "B" },
+  { date: "2_11", arPeriod: "B 6/7", rotationDay: "C" },
+  { date: "2_12", arPeriod: "C 6/7", rotationDay: "A" },
+  { date: "2_15", arPeriod: "A 1/2", rotationDay: "B" },
+  { date: "2_16", arPeriod: "B 1/2", rotationDay: "C" },
+  { date: "2_17", arPeriod: "C 1/2", rotationDay: "A" },
+  { date: "2_18", arPeriod: "A 4/5", rotationDay: "B" },
+  { date: "2_19", arPeriod: "B 4/5", rotationDay: "C" },
+  { date: "2_22", arPeriod: "C 4/5", rotationDay: "A" },
+  { date: "2_23", arPeriod: "A 6/7", rotationDay: "B" },
+  { date: "2_24", arPeriod: "B 6/7", rotationDay: "C" },
+  { date: "2_25", arPeriod: "C 6/7", rotationDay: "A" },
 ];
 
-var replyAR = function () {
-  fetch("http://worldtimeapi.org/api/timezone/America/New_York")
-    .then((res) => res.json)
-    .then((dayDateSplit) => res.datetime.split(/[-,T]/))
-    .then((dayDate) => dayDateSplit[1] + "_" + dayDateSplit[2])
-    .then((finalResults) => {
-      infoNow = arDates.find((arDates) => arDates.date === dayDate);
-      replyContent = `The rotation day is: ${infoNow.rotationDay}. The AR period is ${infoNow.arPeriod}`;
-      return replyContent;
-    });
-};
 
 function arDateReply() {
-  infoNow = arDates.find((arDates) => arDates.date === getCurrentDayDate());
+  const timeNow = new Date();
+  timeNowDayDate = timeNow.getMonth() + "_" + timenow.getDate();
+  infoNow = arDates.find((arDates) => arDates.date === timeNowDayDate);
 
   replyContent = `The rotation day is: ${infoNow.rotationDay}. The AR period is ${infoNow.arPeriod}`;
   return replyContent;
