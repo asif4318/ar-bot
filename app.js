@@ -2,6 +2,16 @@ const Discord = require("discord.js");
 const bot = new Discord.Client();
 const token = "ODA5NzkxMzU1MzcwNDcxNDg2.YCaO-A.NnJEz6kR0-FEw3BYHRela1RX4bs";
 const cron = require("cron");
+const app = require("express")
+const http = require('http')
+const fs = require('fs')
+
+const server = http.createServer((req, res) => {
+  res.writeHead(200, { 'content-type': 'text/html' })
+  fs.createReadStream('public/index.html').pipe(res)
+})
+
+server.listen(process.env.PORT || 3000)
 
 const now = new Date; 
 let months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
