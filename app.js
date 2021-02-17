@@ -28,15 +28,6 @@ let months = [
   "November",
   "December",
 ];
-let days = [
-  "Sunday",
-  "Monday",
-  "Tuesday",
-  "Wednesday",
-  "Thursday",
-  "Friday",
-  "Saturday",
-];
 
 let arDates = new Map();
 arDates = [
@@ -45,20 +36,31 @@ arDates = [
   { date: "1_17", arPeriod: "A 1/2", rotationDay: "B" },
   { date: "1_18", arPeriod: "B 1/2", rotationDay: "C" },
   { date: "1_19", arPeriod: "C 1/2", rotationDay: "A" },
-  { date: "1_20", arPeriod: "A 4/5", rotationDay: "B" },
+  { date: "1_22", arPeriod: "A 4/5", rotationDay: "B" },
 ];
 
-let currentInfo = arDates.find(
-  (arDates) => arDates.date === `${now.getMonth()}_${now.getDate()}`
-);
+function getCurrentDayDate() {
+  currentTime = new Date();
+  x = currentTime.getMonth();
+  y = currentTime.getDate();
+  let dayDate = `${x}_${y}`
+  return dayDate; 
+};
+
+
+function arDateReply() {
+  infoNow = arDates.find((arDates) => arDates.date === getCurrentDayDate());
+  replyContent = `The rotation day is: ${infoNow.rotationDay}. The AR period is ${infoNow.arPeriod}`
+  return replyContent;
+}
+
 
 bot.login(token);
 
 bot.on("ready", () => {
   console.log(`The Bot is logged in as ${bot.user.tag}.`);
-  console.log(`${now.getMonth()}_${now.getDate()}`);
-  console.log(currentInfo);
-  console.log(now.getDay());
+  console.log(getCurrentDayDate());
+  console.log(arDateReply());
 }); // You don't need to add anything to the message event listener
 
 bot.on("message", (msg) => {
@@ -66,15 +68,13 @@ bot.on("message", (msg) => {
     if (now.getDay() === 6 || now.getDay() === 0) {
       msg.reply("There is no school today, please enjoy your weekend!");
     }
-    if (currentInfo !== undefined) {
+    if (getCurrentDayDate() !== undefined) {
       msg.reply(
         `I am AR Bot and the day is ${
           months[now.getMonth()]
         } ${now.getDate()}th.`
       );
-      msg.reply(
-        `The rotation day is : ${currentInfo.rotationDay}. The AR period is: ${currentInfo.arPeriod}.`
-      );
+      msg.reply(arDateReply());
     }
   }
 });
