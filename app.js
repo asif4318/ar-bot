@@ -1,8 +1,7 @@
 const Discord = require("discord.js");
 const bot = new Discord.Client();
-const token = "ODA5NzkxMzU1MzcwNDcxNDg2.YCaO-A.NnJEz6kR0-FEw3BYHRela1RX4bs";
-const cron = require("cron");
-const app = require("express");
+require('dotenv').config()
+const token = process.env.TOKEN;
 const http = require("http");
 const fs = require("fs");
 
