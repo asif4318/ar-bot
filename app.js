@@ -36,6 +36,10 @@ arDates = [
   { date: "1_18", arPeriod: "B 1/2", rotationDay: "C" },
   { date: "1_19", arPeriod: "C 1/2", rotationDay: "A" },
   { date: "1_22", arPeriod: "A 4/5", rotationDay: "B" },
+  { date: "1_23", arPeriod: "B 4/5", rotationDay: "C" },
+  { date: "1_24", arPeriod: "C 4/5", rotationDay: "A" },
+  { date: "1_25", arPeriod: "A 6/7", rotationDay: "B" },
+  { date: "1_26", arPeriod: "B 6/7", rotationDay: "C" },
 ];
 
 function getCurrentDayDate() {
@@ -75,5 +79,11 @@ bot.on("message", (msg) => {
       );
       msg.reply(arDateReply());
     }
+  }
+  if (msg.content.startsWith === "!gulag") {
+    msg.guild.roles.fetch()
+      .then(roles => console.log(roles.cache))
+      .catch(console.error);
+     
   }
 });
