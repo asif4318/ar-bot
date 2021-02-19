@@ -68,7 +68,6 @@ function arDateReply() {
   return replyContent;
 }
 
-
 bot.login(token);
 
 bot.on("ready", () => {
@@ -78,15 +77,16 @@ bot.on("ready", () => {
 }); // You don't need to add anything to the message event listener
 
 bot.on("message", (msg) => {
+  currentTime = new Date;
   if (msg.content === "!ar") {
-    if (now.getDay() === 6 || now.getDay() === 0) {
+    if (currentTime.getDay() === 6 || currentTime.getDay() === 0) {
       msg.reply("There is no school today, please enjoy your weekend!");
     }
     if (getCurrentDayDate() !== undefined) {
       msg.reply(
         `I am AR Bot and the day is ${
-          months[now.getMonth()]
-        } ${now.getDate()}th.`
+          months[currentTime.getMonth()]
+        } ${currentTime.getDate()}th.`
       );
       msg.reply(arDateReply());
     }
