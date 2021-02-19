@@ -80,10 +80,4 @@ bot.on("message", (msg) => {
       msg.reply(arDateReply());
     }
   }
-  if (msg.content.startsWith === "!gulag") {
-    msg.guild.roles.fetch()
-      .then(roles => console.log(roles.cache))
-      .catch(console.error);
-     
-  }
 });
