@@ -40,6 +40,17 @@ arDates = [
   { date: "1_24", arPeriod: "C 4/5", rotationDay: "A" },
   { date: "1_25", arPeriod: "A 6/7", rotationDay: "B" },
   { date: "1_26", arPeriod: "B 6/7", rotationDay: "C" },
+  { date: "2_1", arPeriod: "C 6/7", rotationDay: "A" }, 
+  { date: "2_2", arPeriod: "C 6/7", rotationDay: "A" },
+  { date: "2_3", arPeriod: "A 1/2", rotationDay: "B" },
+  { date: "2_4", arPeriod: "B 1/2", rotationDay: "C" },
+  { date: "2_5", arPeriod: "C 1/2", rotationDay: "A" },
+  { date: "2_8", arPeriod: "A 4/5", rotationDay: "B" },
+  { date: "2_9", arPeriod: "B 4/5", rotationDay: "C" },
+  { date: "2_10", arPeriod: "C 4/5", rotationDay: "A" },
+  { date: "2_11", arPeriod: "A 6/7", rotationDay: "B" },
+  { date: "2_12", arPeriod: "B 6/7", rotationDay: "C" },
+  { date: "2_13", arPeriod: "C 6/7", rotationDay: "A" }
 ];
 
 function getCurrentDayDate() {
