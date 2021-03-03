@@ -172,13 +172,35 @@ bot.on("message", async (msg) => {
 
   if (command === "cat") {
     let getCat = async () => {
-      let response = await axios.get("https://api.thecatapi.com/v1/images/search");
+      let response = await axios.get(
+        "https://api.thecatapi.com/v1/images/search"
+      );
       let catArray = response.data[0];
       let cat = catArray.url;
-      return cat; 
+      return cat;
     };
 
-  let catValue = await getCat();
-  msg.channel.send({files: [catValue]})
+    let catValue = await getCat();
+    msg.channel.send({ files: [catValue] });
+  }
+
+  if (command === "graduation") {
+    let graduationCountdown = () => {
+      const gradDate = new Date("06/01/2021");
+      const now = new Date();
+
+      let distance = gradDate.getTime() - now.getTime();
+
+      let days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      let hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      let seconds = Math.floor((distance % (1000 * 60)) / 1000);
+  
+
+      let reply = days + "d " + hours + "h " + minutes + "m " + seconds + "s ";
+      return reply
+    };
+  
+   msg.channel.send("Time left until senior graduation: " + graduationCountdown());
   }
 });
