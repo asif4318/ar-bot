@@ -169,4 +169,14 @@ bot.on("message", async (msg) => {
       "$ar returns todays AR. $insult returns insult. $compliment returns compliment. $inspire returns inspirational quote"
     );
   }
+
+  if (command === "cat") {
+    let getCat = async() => {
+      let response = await axios.get('https://api.thecatapi.com/v1/images/search');
+      let cat = response.data.url;
+      return cat
+  }
+  let catValue = await getCat();
+  msg.reply(catValue);
+  }
 });
