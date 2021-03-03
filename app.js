@@ -128,9 +128,13 @@ bot.on("message", async (msg) => {
       let insult = response.data;
       return insult;
     };
-    let taggedUser = "";
-    taggedUser = msg.mentions.users.first();
-
+    if (msg.mentions.users.first() === undefined) {
+      taggedUser = ""
+    }
+    else {
+      taggedUser = msg.mentions.users.first()
+    }
+    
     let insultValue = await getInsult();
     let reply = insultValue + ` ${taggedUser}`;
     msg.channel.send(reply);
