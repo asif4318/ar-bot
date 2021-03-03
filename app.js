@@ -203,4 +203,16 @@ bot.on("message", async (msg) => {
   
    msg.channel.send("Time left until senior graduation: " + graduationCountdown());
   }
+  if (command === "8ball" && args.length >= 0) {
+    let get8ball = async () => {
+      let response = await axios.get(
+        "https://customapi.aidenwallis.co.uk/api/v1/misc/8ball"
+      );
+      let eightBall = response.data;
+      return eightBall;
+    };
+
+    let eightBallValue = await get8ball();
+    msg.channel.send(eightBallValue);
+  }
 });
