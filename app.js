@@ -77,22 +77,6 @@ function monthDateReply() {
   return replyContent;
 }
 
-async function getInternetMonth() {
-  let datetime;
-  try {
-    var response = await fetch(
-      "http://worldtimeapi.org/api/timezone/America/New_York"
-    );
-    datetime = await response.json();
-    timeSplit = datetime.datetime.split(/[-,T]/);
-    month = timeSplit[1];
-    console.log(month);
-    return month;
-  } catch (e) {
-    console.error(e);
-  }
-}
-
 function getCurrentDayDate() {
   currentTime = new Date();
   x = currentTime.getMonth();
