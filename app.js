@@ -63,7 +63,6 @@ arDates = [
   { date: "2_25", arPeriod: "C 6/7", rotationDay: "A" },
 ];
 
-
 function arDateReply() {
   const timeNow = new Date();
   timeNowDayDate = timeNow.getMonth() + "_" + timeNow.getDate();
@@ -168,22 +167,19 @@ function getCurrentDayDate() {
   let dayDate = `${x}_${y}`;
   return dayDate;
 }
+async function makeGetRequest() {
+  function randomInteger(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
 
+  let res = await axios.get('https://type.fit/api/quotes');
 
-
-function inspirationQuote() {axios.get('https://type.fit/api/quotes')
-  .then(function (response) {
-    let allQuotes = response.data;
-    function getRandomInt(max) {
-        return Math.floor(Math.random() * Math.floor(max));
-      }
-    return selectedQuote = allQuotes[getRandomInt(allQuotes.length)];
-  })
-  .catch(function (error) {
-    let errMessage = "Sorry there was an error"
-    return errMessage;
-  });}
-
+  let data = res.data;
+  let quote = data[randomInteger(0,1543)]
+  let message = `"${quote.text}" - ${quote.author}`
+ 
+  return message;
+}
 bot.login(token);
 
 bot.on("ready", () => {
@@ -191,7 +187,7 @@ bot.on("ready", () => {
   console.log(now.getDate() + " " + now.getDay());
 }); // You don't need to add anything to the message event listener
 
-bot.on("message", (msg) => {
+bot.on("message", async msg => {
   if (msg.content === "!ar") {
     const timeNow = new Date();
     if (timeNow.getDay() === 6 || timeNow.getDay() === 0) {
@@ -205,10 +201,21 @@ bot.on("message", (msg) => {
     msg.reply(now.getDate());
     msg.reply(`Test: ${timetest()}`);
   }
-});
-
-bot.on("message", (msg) => {
   if (msg.content === "!inspire") {
-    msg.reply(inspirationQuote()); 
+
+    function randomInteger(min, max) {
+      return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+
+    let getQuote = async () => {
+      let response = await axios.get('https://type.fit/api/quotes');
+      let quote = response.data[randomInteger(0, 1542)]; 
+      return quote
+    }
+
+    let quoteValue = await getQuote();
+    let quoteReply = `"${quoteValue.text}" - ${quoteValue.author}`
+    console.log(quoteReply);
+    msg.reply(quoteReply); 
   }
-})
+});
