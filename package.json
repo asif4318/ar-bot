@@ -6,6 +6,7 @@
   "author": "techiphyte76 <77113884+techiphyte76@users.noreply.github.com>",
   "license": "MIT",
   "dependencies": {
+    "axios": "^0.21.1",
     "cron": "^1.8.2",
     "discord.js": "^12.5.1",
     "dotenv": "^8.2.0",

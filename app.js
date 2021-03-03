@@ -5,6 +5,7 @@ const token = process.env.TOKEN;
 const http = require("http");
 const fs = require("fs");
 const fetch = require("node-fetch");
+const axios = require("axios");
 
 const server = http.createServer((req, res) => {
   res.writeHead(200, { "content-type": "text/html" });
@@ -168,11 +169,21 @@ function getCurrentDayDate() {
   return dayDate;
 }
 
-function timetest() {
-  const serverTime = new Date();
-  test = serverTime.getDate();
-  return test;
-}
+
+
+function inspirationQuote() {axios.get('https://type.fit/api/quotes')
+  .then(function (response) {
+    let allQuotes = response.data;
+    function getRandomInt(max) {
+        return Math.floor(Math.random() * Math.floor(max));
+      }
+    selectedQuote = allQuotes[getRandomInt(allQuotes.length)];
+    console.log(`"${selectedQuote.text}"` + " - " +  selectedQuote.author);
+  })
+  .catch(function (error) {
+    let errMessage = "Sorry there was an error"
+    return errMessage;
+  });}
 
 bot.login(token);
 
@@ -196,3 +207,10 @@ bot.on("message", (msg) => {
     msg.reply(`Test: ${timetest()}`);
   }
 });
+
+bot.on("message", (msg) => {
+  if (msg.content === "!inspire") {
+    const response = inspireationQuote();
+    msg.reply(response); 
+  }
+})
