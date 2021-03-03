@@ -135,7 +135,7 @@ bot.on("message", async (msg) => {
 
     let complimentValue = await getCompliment();
     let reply = complimentValue + ` ${taggedUser}`;
-    msg.reply(reply);
+    msg.channel.send(reply);
   }
 
   if (command === "insult") {
