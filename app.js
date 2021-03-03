@@ -179,6 +179,6 @@ bot.on("message", async (msg) => {
     };
 
   let catValue = await getCat();
-  msg.channel.send("My Bot's message", {files: [catValue]})
+  msg.channel.send({files: [catValue]})
   }
 });
