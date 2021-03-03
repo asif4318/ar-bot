@@ -172,12 +172,12 @@ async function makeGetRequest() {
     return Math.floor(Math.random() * (max - min + 1)) + min;
   }
 
-  let res = await axios.get('https://type.fit/api/quotes');
+  let res = await axios.get("https://type.fit/api/quotes");
 
   let data = res.data;
-  let quote = data[randomInteger(0,1543)]
-  let message = `"${quote.text}" - ${quote.author}`
- 
+  let quote = data[randomInteger(0, 1543)];
+  let message = `"${quote.text}" - ${quote.author}`;
+
   return message;
 }
 bot.login(token);
@@ -187,7 +187,7 @@ bot.on("ready", () => {
   console.log(now.getDate() + " " + now.getDay());
 }); // You don't need to add anything to the message event listener
 
-bot.on("message", async msg => {
+bot.on("message", async (msg) => {
   if (msg.content === "!ar") {
     const timeNow = new Date();
     if (timeNow.getDay() === 6 || timeNow.getDay() === 0) {
@@ -202,20 +202,40 @@ bot.on("message", async msg => {
     msg.reply(`Test: ${timetest()}`);
   }
   if (msg.content === "!inspire") {
-
     function randomInteger(min, max) {
       return Math.floor(Math.random() * (max - min + 1)) + min;
     }
 
     let getQuote = async () => {
-      let response = await axios.get('https://type.fit/api/quotes');
-      let quote = response.data[randomInteger(0, 1542)]; 
-      return quote
-    }
+      let response = await axios.get("https://type.fit/api/quotes");
+      let quote = response.data[randomInteger(0, 1542)];
+      return quote;
+    };
 
     let quoteValue = await getQuote();
-    let quoteReply = `"${quoteValue.text}" - ${quoteValue.author}`
+    let quoteReply = `"${quoteValue.text}" - ${quoteValue.author}`;
     console.log(quoteReply);
-    msg.reply(quoteReply); 
+    msg.reply(quoteReply);
+  }
+  if (msg.content === "!insult") {
+    let getInsult = async () => {
+      let response = await axios.get("https://insult.mattbas.org/api/insult");
+      let insult = response.data;
+      return insult;
+    };
+    let insultValue = await getInsult();
+    msg.reply(insultValue);
+  }
+  if (msg.content === "!compliment") {
+    let getCompliment = async () => {
+      let response = await axios.get("https://complimentr.com/api");
+      let compliment = response.data.compliment;
+      return compliment;
+    };
+    let complimentValue = await getCompliment();
+    msg.reply(complimentValue);
+  }
+  if (msg.content === "!ar help") {
+    msg.reply("!ar returns todays AR. !insult returns insult. !compliment returns compliment. !inspire returns inspirational quote");
   }
 });
