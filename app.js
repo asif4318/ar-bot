@@ -171,12 +171,14 @@ bot.on("message", async (msg) => {
   }
 
   if (command === "cat") {
-    let getCat = async() => {
-      let response = await axios.get('https://api.thecatapi.com/v1/images/search');
-      let cat = response.data.url;
-      return cat
-  }
+    let getCat = async () => {
+      let response = await axios.get("https://api.thecatapi.com/v1/images/search");
+      let catArray = response.data[0];
+      let cat = catArray.url;
+      return cat; 
+    };
+
   let catValue = await getCat();
-  msg.reply(catValue);
+  msg.channel.send("My Bot's message", {files: [catValue]})
   }
 });
