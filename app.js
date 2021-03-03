@@ -4,8 +4,8 @@ require("dotenv").config();
 const token = process.env.TOKEN;
 const http = require("http");
 const fs = require("fs");
-const fetch = require("node-fetch");
 const axios = require("axios");
+const prefix = "$";
 
 const server = http.createServer((req, res) => {
   res.writeHead(200, { "content-type": "text/html" });
@@ -14,7 +14,6 @@ const server = http.createServer((req, res) => {
 
 server.listen(process.env.PORT || 3000);
 
-const now = new Date();
 let months = [
   "January",
   "February",
@@ -78,41 +77,6 @@ function monthDateReply() {
   return replyContent;
 }
 
-timeTest1 = currentTime();
-
-async function currentTime() {
-  let datetime;
-  try {
-    var response = await fetch(
-      "http://worldtimeapi.org/api/timezone/America/New_York"
-    );
-    datetime = await response.json();
-    timeSplit = datetime.datetime;
-    console.log(timeSplit);
-    return timeSplit;
-  } catch (e) {
-    console.error(e);
-  }
-}
-
-async function getInternetDayDate() {
-  let datetime;
-  try {
-    var response = await fetch(
-      "http://worldtimeapi.org/api/timezone/America/New_York"
-    );
-    datetime = await response.json();
-    timeSplit = datetime.datetime.split(/[-,T]/);
-    month = timeSplit[1];
-    dayOfMonth = timeSplit[2];
-    dayDate = month + "_" + dayOfMonth;
-    console.log(dayDate);
-    return dayDate;
-  } catch (e) {
-    console.error(e);
-  }
-}
-
 async function getInternetMonth() {
   let datetime;
   try {
@@ -129,37 +93,6 @@ async function getInternetMonth() {
   }
 }
 
-async function getInternetDate() {
-  let datetime;
-  try {
-    var response = await fetch(
-      "http://worldtimeapi.org/api/timezone/America/New_York"
-    );
-    datetime = await response.json();
-    timeSplit = datetime.datetime.split(/[-,T]/);
-    dayOfMonth = timeSplit[2];
-    console.log(dayOfMonth);
-    return dayOfMonth;
-  } catch (e) {
-    console.error(e);
-  }
-}
-
-async function getInternetDayofWeek() {
-  let internetDate;
-  try {
-    var response = await fetch(
-      "http://worldtimeapi.org/api/timezone/America/New_York"
-    );
-    internetDate = await response.json();
-    dayOfWeek = internetDate.day_of_week;
-    console.log("The day of week is " + dayOfWeek);
-    return dayOfWeek;
-  } catch (e) {
-    console.error(e);
-  }
-}
-
 function getCurrentDayDate() {
   currentTime = new Date();
   x = currentTime.getMonth();
@@ -167,28 +100,20 @@ function getCurrentDayDate() {
   let dayDate = `${x}_${y}`;
   return dayDate;
 }
-async function makeGetRequest() {
-  function randomInteger(min, max) {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-  }
 
-  let res = await axios.get("https://type.fit/api/quotes");
-
-  let data = res.data;
-  let quote = data[randomInteger(0, 1543)];
-  let message = `"${quote.text}" - ${quote.author}`;
-
-  return message;
-}
 bot.login(token);
 
 bot.on("ready", () => {
   console.log(`The Bot is logged in as ${bot.user.tag}.`);
-  console.log(now.getDate() + " " + now.getDay());
+  bot.user.setActivity('to $help', { type: "LISTENING"})
 }); // You don't need to add anything to the message event listener
 
 bot.on("message", async (msg) => {
-  if (msg.content === "!ar") {
+  if (!msg.content.startsWith(prefix) || msg.author.bot) return;
+  const args = msg.content.slice(prefix.length).trim().split(" ");
+  const command = args.shift().toLowerCase();
+
+  if (command === "ar") {
     const timeNow = new Date();
     if (timeNow.getDay() === 6 || timeNow.getDay() === 0) {
       msg.reply("There is no school today, please enjoy your weekend!");
@@ -197,11 +122,36 @@ bot.on("message", async (msg) => {
       msg.reply(monthDateReply());
     }
   }
-  if (msg.content === "!time") {
-    msg.reply(now.getDate());
-    msg.reply(`Test: ${timetest()}`);
+
+  if (command === "compliment") {
+    let getCompliment = async () => {
+      let response = await axios.get("https://complimentr.com/api");
+      let compliment = response.data.compliment;
+      return compliment;
+    };
+
+    let taggedUser = "";
+    taggedUser = msg.mentions.users.first();
+
+    let complimentValue = await getCompliment();
+    let reply = complimentValue + ` ${taggedUser}`;
+    msg.reply(reply);
   }
-  if (msg.content === "!inspire") {
+
+  if (command === "insult") {
+    let getInsult = async () => {
+      let response = await axios.get("https://insult.mattbas.org/api/insult");
+      let insult = response.data;
+      return insult;
+    };
+    let taggedUser = "";
+    taggedUser = msg.mentions.users.first();
+
+    let insultValue = await getInsult();
+    let reply = insultValue + ` ${taggedUser}`;
+    msg.channel.send(reply);
+  }
+  if (command === "inspire") {
     function randomInteger(min, max) {
       return Math.floor(Math.random() * (max - min + 1)) + min;
     }
@@ -212,30 +162,18 @@ bot.on("message", async (msg) => {
       return quote;
     };
 
+    let taggedUser = "";
+    taggedUser = msg.mentions.users.first();
+
     let quoteValue = await getQuote();
-    let quoteReply = `"${quoteValue.text}" - ${quoteValue.author}`;
+    let quoteReply = `"${quoteValue.text}" - ${quoteValue.author} ${taggedUser}`;
     console.log(quoteReply);
-    msg.reply(quoteReply);
+    msg.channel.send(quoteReply);
   }
-  if (msg.content === "!insult") {
-    let getInsult = async () => {
-      let response = await axios.get("https://insult.mattbas.org/api/insult");
-      let insult = response.data;
-      return insult;
-    };
-    let insultValue = await getInsult();
-    msg.reply(insultValue);
-  }
-  if (msg.content === "!compliment") {
-    let getCompliment = async () => {
-      let response = await axios.get("https://complimentr.com/api");
-      let compliment = response.data.compliment;
-      return compliment;
-    };
-    let complimentValue = await getCompliment();
-    msg.reply(complimentValue);
-  }
-  if (msg.content === "!ar help") {
-    msg.reply("!ar returns todays AR. !insult returns insult. !compliment returns compliment. !inspire returns inspirational quote");
+
+  if (command === "help") {
+    msg.reply(
+      "$ar returns todays AR. $insult returns insult. $compliment returns compliment. $inspire returns inspirational quote"
+    );
   }
 });
