@@ -89,7 +89,7 @@ bot.login(token);
 
 bot.on("ready", () => {
   console.log(`The Bot is logged in as ${bot.user.tag}.`);
-  bot.user.setActivity('to $help', { type: "LISTENING"})
+  bot.user.setActivity("to $help", { type: "LISTENING" });
 }); // You don't need to add anything to the message event listener
 
 bot.on("message", async (msg) => {
@@ -114,8 +114,11 @@ bot.on("message", async (msg) => {
       return compliment;
     };
 
-    let taggedUser = "";
-    taggedUser = msg.mentions.users.first();
+    if (msg.mentions.users.first() === undefined) {
+      taggedUser = "";
+    } else {
+      taggedUser = msg.mentions.users.first();
+    }
 
     let complimentValue = await getCompliment();
     let reply = complimentValue + ` ${taggedUser}`;
@@ -129,12 +132,11 @@ bot.on("message", async (msg) => {
       return insult;
     };
     if (msg.mentions.users.first() === undefined) {
-      taggedUser = ""
+      taggedUser = "";
+    } else {
+      taggedUser = msg.mentions.users.first();
     }
-    else {
-      taggedUser = msg.mentions.users.first()
-    }
-    
+
     let insultValue = await getInsult();
     let reply = insultValue + ` ${taggedUser}`;
     msg.channel.send(reply);
@@ -150,8 +152,11 @@ bot.on("message", async (msg) => {
       return quote;
     };
 
-    let taggedUser = "";
-    taggedUser = msg.mentions.users.first();
+    if (msg.mentions.users.first() === undefined) {
+      taggedUser = "";
+    } else {
+      taggedUser = msg.mentions.users.first();
+    }
 
     let quoteValue = await getQuote();
     let quoteReply = `"${quoteValue.text}" - ${quoteValue.author} ${taggedUser}`;
