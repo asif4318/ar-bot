@@ -65,7 +65,7 @@ arDates = [
 
 function arDateReply() {
   const timeNow = new Date();
-  timeNowDayDate = timeNow.getMonth() + "_" + timenow.getDate();
+  timeNowDayDate = timeNow.getMonth() + "_" + timeNow.getDate();
   infoNow = arDates.find((arDates) => arDates.date === timeNowDayDate);
 
   replyContent = `The rotation day is: ${infoNow.rotationDay}. The AR period is ${infoNow.arPeriod}`;
@@ -74,9 +74,7 @@ function arDateReply() {
 
 function monthDateReply() {
   const timeNow = new Date();
-  replyContent = `I am AR Bot and the day is ${
-    months[timeNow.getMonth()]
-  } ${timeNow.getDate()}th. The time is: ${timeNow.getHours()}:${timeNow.getMinutes()}.`;
+  replyContent = `I am AR Bot and the date is:  ${timeNow.toLocaleDateString()}. The time is: ${timeNow.toLocaleTimeString()}`;
   return replyContent;
 }
 
