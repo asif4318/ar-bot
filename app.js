@@ -177,7 +177,7 @@ function inspirationQuote() {axios.get('https://type.fit/api/quotes')
     function getRandomInt(max) {
         return Math.floor(Math.random() * Math.floor(max));
       }
-    selectedQuote = allQuotes[getRandomInt(allQuotes.length)];
+    return selectedQuote = allQuotes[getRandomInt(allQuotes.length)];
     console.log(`"${selectedQuote.text}"` + " - " +  selectedQuote.author);
   })
   .catch(function (error) {
