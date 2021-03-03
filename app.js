@@ -178,7 +178,6 @@ function inspirationQuote() {axios.get('https://type.fit/api/quotes')
         return Math.floor(Math.random() * Math.floor(max));
       }
     return selectedQuote = allQuotes[getRandomInt(allQuotes.length)];
-    console.log(`"${selectedQuote.text}"` + " - " +  selectedQuote.author);
   })
   .catch(function (error) {
     let errMessage = "Sorry there was an error"
@@ -210,7 +209,6 @@ bot.on("message", (msg) => {
 
 bot.on("message", (msg) => {
   if (msg.content === "!inspire") {
-    const response = inspirationQuote();
-    msg.reply(response); 
+    msg.reply(inspirationQuote()); 
   }
 })
