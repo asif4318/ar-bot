@@ -219,9 +219,68 @@ bot.on("message", async (msg) => {
   }
 
   if (command === "help") {
-    msg.reply(
-      "$ar returns todays AR. $insult returns insult. $compliment returns compliment. $inspire returns inspirational quote."
-    );
+    msg.channel.send({
+      embed: {
+        title: "**Help**",
+        description: "This lists my available commands`",
+        color: 5668554,
+        timestamp: "2021-03-04T18:35:06.262Z",
+        footer: {
+          icon_url: "https://cdn.discordapp.com/embed/avatars/0.png",
+          text: "Bot made by Asif",
+        },
+        fields: [
+          {
+            name: "$ar",
+            value: "Generates the current day's AR period",
+          },
+          {
+            name: "$graduation",
+            value:
+              "Generates time until PHU's senior graduation (On Jun 1st, 2021)",
+          },
+          {
+            name: "$insult {@user}",
+            value:
+              "Generates insult with the ability to be directed at a specified user",
+          },
+          {
+            name: "$insult2 {@user}",
+            value:
+              "Generates more extreme insult with the ability to be directed at a specified user",
+          },
+          {
+            name: "$yomama {@user}",
+            value: "Generates yo mama joke",
+          },
+          {
+            name: "$dadjoke",
+            value: "Generates a dad joke",
+          },
+          {
+            name: "$meme",
+            value: "Fetches a meme",
+          },
+          {
+            name: "$cat",
+            value: "Fetches a cat image",
+          },
+          {
+            name: "$dog",
+            value: "Fetches a dog image",
+          },
+          {
+            name: "$nasa",
+            value: "Fetches a NASA's astronomy picture of the day",
+          },
+          {
+            name: "$pokemon {name of pokemon}",
+            value:
+              "Fetches the pokemon's sprite from given name {example: `$pokemon ditto`}",
+          },
+        ],
+      },
+    });
   }
 
   if (command === "cat") {
@@ -239,9 +298,7 @@ bot.on("message", async (msg) => {
   }
   if (command === "dog") {
     let getDog = async () => {
-      let response = await axios.get(
-        "https://dog.ceo/api/breeds/image/random"
-      );
+      let response = await axios.get("https://dog.ceo/api/breeds/image/random");
       let dog = response.data.message;
       return dog;
     };
@@ -299,15 +356,16 @@ bot.on("message", async (msg) => {
     let fetchedPokemonInfo = await getPokemon();
     let errMessage = "Sorry the Pokemon was entered incorrectly";
     if (fetchedPokemonInfo === errMessage) {
-      reply =
-        msg.channel.send("Sorry that pokemon does not exist. Please check your spelling and try again.");
+      reply = msg.channel.send(
+        "Sorry that pokemon does not exist. Please check your spelling and try again."
+      );
     } else {
       let sprite = fetchedPokemonInfo.sprites.front_default;
       let name = fetchedPokemonInfo.name;
       doubleReply = () => {
         msg.channel.send(`Here is: ${name}`);
         msg.channel.send(sprite);
-      }
+      };
       reply = doubleReply();
     }
     reply;
@@ -329,7 +387,7 @@ bot.on("message", async (msg) => {
       let response = await axios.get("https://meme-api.herokuapp.com/gimme");
       let meme = response.data.url;
       return meme;
-    }
+    };
     let memeValue = await getMeme();
     msg.channel.send(memeValue);
   }
