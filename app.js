@@ -237,6 +237,18 @@ bot.on("message", async (msg) => {
     let catValue = await getCat();
     msg.channel.send({ files: [catValue] });
   }
+  if (command === "dog") {
+    let getDog = async () => {
+      let response = await axios.get(
+        "https://dog.ceo/api/breeds/image/random"
+      );
+      let dog = response.data.message;
+      return dog;
+    };
+
+    let dogValue = await getDog();
+    msg.channel.send({ files: [dogValue] });
+  }
 
   if (command === "graduation") {
     let graduationCountdown = () => {
