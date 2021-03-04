@@ -141,6 +141,26 @@ bot.on("message", async (msg) => {
     let reply = insultValue + ` ${taggedUser}`;
     msg.channel.send(reply);
   }
+  if (command === "dadjoke") {
+    let getDadJoke = async () => {
+      let response = await axios.get("https://icanhazdadjoke.com/", {
+        headers: {'Accept': "application/json"}
+      }
+      
+      );
+      let dadJoke = response.data.joke;
+      return dadJoke;
+    };
+    if (msg.mentions.users.first() === undefined) {
+      taggedUser = "";
+    } else {
+      taggedUser = msg.mentions.users.first();
+    }
+
+    let dadJokeValue = await getDadJoke();
+    let reply = dadJokeValue + ` ${taggedUser}`;
+    msg.channel.send(reply);
+  }
   if (command === "insult2") {
     let getInsult = async () => {
       let response = await axios.get("https://evilinsult.com/generate_insult.php?lang=en&type=json");
@@ -182,7 +202,7 @@ bot.on("message", async (msg) => {
 
   if (command === "help") {
     msg.reply(
-      "$ar returns todays AR. $insult returns insult. $compliment returns compliment. $inspire returns inspirational quote"
+      "$ar returns todays AR. $insult returns insult. $compliment returns compliment. $inspire returns inspirational quote."
     );
   }
 
