@@ -216,7 +216,7 @@ bot.on("message", async (msg) => {
       .setAuthor(
         "IB Bot"
       )
-      .setDescription("Some description here")
+      .setDescription("A bot originally designed for IB students.")
       .addFields(
         {
           name: "$ar",
