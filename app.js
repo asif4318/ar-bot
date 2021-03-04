@@ -285,9 +285,19 @@ bot.on("message", async (msg) => {
       }
     };
     let fetchedPokemonInfo = await getPokemon();
-    let sprite = fetchedPokemonInfo.sprites.front_default;
-    let name = fetchedPokemonInfo.name; 
-    msg.channel.send(sprite);
-    msg.channel.send(`Here is: ${name}`)
+    let errMessage = "Sorry the Pokemon was entered incorrectly";
+    if (fetchedPokemonInfo === errMessage) {
+      reply =
+        msg.channel.send("Sorry that pokemon does not exist. Please check your spelling and try again.");
+    } else {
+      let sprite = fetchedPokemonInfo.sprites.front_default;
+      let name = fetchedPokemonInfo.name;
+      doubleReply = () => {
+        msg.channel.send(`Here is: ${name}`);
+        msg.channel.send(sprite);
+      }
+      reply = doubleReply();
+    }
+    reply;
   }
 });
