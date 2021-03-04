@@ -324,4 +324,13 @@ bot.on("message", async (msg) => {
     let nasaValue = await getNasa();
     msg.channel.send({ files: [nasaValue] });
   }
+  if (command === "meme") {
+    let getMeme = async () => {
+      let response = await axios.get("https://meme-api.herokuapp.com/gimme");
+      let meme = response.data.url;
+      return meme;
+    }
+    let memeValue = await getMeme();
+    msg.channel.send(memeValue);
+  }
 });
