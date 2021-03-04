@@ -363,7 +363,7 @@ bot.on("message", async (msg) => {
   if (command === "nasa") {
     let getNasa = async () => {
       let response = await axios.get(
-        "https://api.nasa.gov/planetary/apod?api_key=0MASGs4gcTRGjh3nEcBQ22qq3pNlGvQQHXH4Mzy8"
+        `https://api.nasa.gov/planetary/apod?api_key=${process.env.NASA}`
       );
       let nasa = response.data.hdurl;
       return nasa;
