@@ -141,6 +141,22 @@ bot.on("message", async (msg) => {
     let reply = insultValue + ` ${taggedUser}`;
     msg.channel.send(reply);
   }
+  if (command === "insult2") {
+    let getInsult = async () => {
+      let response = await axios.get("https://evilinsult.com/generate_insult.php?lang=en&type=json");
+      let insult = response.data.insult;
+      return insult;
+    };
+    if (msg.mentions.users.first() === undefined) {
+      taggedUser = "";
+    } else {
+      taggedUser = msg.mentions.users.first();
+    }
+
+    let insultValue = await getInsult();
+    let reply = insultValue + ` ${taggedUser}`;
+    msg.channel.send(reply);
+  }
   if (command === "inspire") {
     function randomInteger(min, max) {
       return Math.floor(Math.random() * (max - min + 1)) + min;
