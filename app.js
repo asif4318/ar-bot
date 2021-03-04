@@ -219,68 +219,67 @@ bot.on("message", async (msg) => {
   }
 
   if (command === "help") {
-    msg.channel.send({
-      embed: {
-        title: "**Help**",
-        description: "This lists my available commands`",
-        color: 5668554,
-        timestamp: "2021-03-04T18:35:06.262Z",
-        footer: {
-          icon_url: "https://cdn.discordapp.com/embed/avatars/0.png",
-          text: "Bot made by Asif",
+    const embed = new Discord.MessageEmbed()
+      .setColor("#0099ff")
+      .setTitle("**Help**")
+      .setAuthor(
+        "IB Bot"
+      )
+      .setDescription("Some description here")
+      .addFields(
+        {
+          name: "$ar",
+          value: "Generates the current day's AR period",
         },
-        fields: [
-          {
-            name: "$ar",
-            value: "Generates the current day's AR period",
-          },
-          {
-            name: "$graduation",
-            value:
-              "Generates time until PHU's senior graduation (On Jun 1st, 2021)",
-          },
-          {
-            name: "$insult {@user}",
-            value:
-              "Generates insult with the ability to be directed at a specified user",
-          },
-          {
-            name: "$insult2 {@user}",
-            value:
-              "Generates more extreme insult with the ability to be directed at a specified user",
-          },
-          {
-            name: "$yomama {@user}",
-            value: "Generates yo mama joke",
-          },
-          {
-            name: "$dadjoke",
-            value: "Generates a dad joke",
-          },
-          {
-            name: "$meme",
-            value: "Fetches a meme",
-          },
-          {
-            name: "$cat",
-            value: "Fetches a cat image",
-          },
-          {
-            name: "$dog",
-            value: "Fetches a dog image",
-          },
-          {
-            name: "$nasa",
-            value: "Fetches a NASA's astronomy picture of the day",
-          },
-          {
-            name: "$pokemon {name of pokemon}",
-            value:
-              "Fetches the pokemon's sprite from given name {example: `$pokemon ditto`}",
-          },
-        ],
-      },
-    });
+        {
+          name: "$graduation",
+          value:
+            "Generates time until PHU's senior graduation (On Jun 1st, 2021)",
+        },
+        {
+          name: "$insult {@user}",
+          value:
+            "Generates insult with the ability to be directed at a specified user",
+        },
+        {
+          name: "$insult2 {@user}",
+          value:
+            "Generates more extreme insult with the ability to be directed at a specified user",
+        },
+        {
+          name: "$yomama {@user}",
+          value: "Generates yo mama joke",
+        },
+        {
+          name: "$dadjoke",
+          value: "Generates a dad joke",
+        },
+        {
+          name: "$meme",
+          value: "Fetches a meme",
+        },
+        {
+          name: "$cat",
+          value: "Fetches a cat image",
+        },
+        {
+          name: "$dog",
+          value: "Fetches a dog image",
+        },
+        {
+          name: "$nasa",
+          value: "Fetches a NASA's astronomy picture of the day",
+        },
+        {
+          name: "$pokemon {name of pokemon}",
+          value:
+            "Fetches the pokemon's sprite from given name {example: `$pokemon ditto`}",
+        },
+      )
+      .setTimestamp()
+      .setFooter("Bot Made by Asif");
+
+    msg.channel.send(embed);
   }
 
   if (command === "cat") {
