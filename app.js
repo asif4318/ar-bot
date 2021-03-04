@@ -260,7 +260,7 @@ bot.on("message", async (msg) => {
       "Time left until senior graduation: " + graduationCountdown()
     );
   }
-  if (command === "8ball" && args.length >= 0) {
+  if (command === "8ball" && args.length >= 1) {
     let get8ball = async () => {
       let response = await axios.get(
         "https://customapi.aidenwallis.co.uk/api/v1/misc/8ball"
@@ -268,8 +268,26 @@ bot.on("message", async (msg) => {
       let eightBall = response.data;
       return eightBall;
     };
-
     let eightBallValue = await get8ball();
     msg.channel.send(eightBallValue);
+  }
+  if (command === "pokemon" && args.length >= 0 && args[0].length >= 1) {
+    let getPokemon = async () => {
+      let requestedPokemon = args[0];
+      try {
+        let response = await axios.get(
+          `https://pokeapi.co/api/v2/pokemon/${requestedPokemon}`
+        );
+        let pokemonInfo = response.data;
+        return pokemonInfo;
+      } catch (err) {
+        return (error = "Sorry the Pokemon was entered incorrectly");
+      }
+    };
+    let fetchedPokemonInfo = await getPokemon();
+    let sprite = fetchedPokemonInfo.sprites.front_default;
+    let name = fetchedPokemonInfo.name; 
+    msg.channel.send(sprite);
+    msg.channel.send(`Here is: ${name}`)
   }
 });
