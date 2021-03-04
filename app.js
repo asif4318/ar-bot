@@ -141,13 +141,12 @@ bot.on("message", async (msg) => {
     let reply = insultValue + ` ${taggedUser}`;
     msg.channel.send(reply);
   }
+
   if (command === "dadjoke") {
     let getDadJoke = async () => {
       let response = await axios.get("https://icanhazdadjoke.com/", {
-        headers: {'Accept': "application/json"}
-      }
-      
-      );
+        headers: { Accept: "application/json" },
+      });
       let dadJoke = response.data.joke;
       return dadJoke;
     };
@@ -161,9 +160,28 @@ bot.on("message", async (msg) => {
     let reply = dadJokeValue + ` ${taggedUser}`;
     msg.channel.send(reply);
   }
+  if (command === "yomama") {
+    let getYomama = async () => {
+      let response = await axios.get("https://api.yomomma.info/");
+      let yoMama = response.data.joke;
+      return yoMama;
+    };
+    if (msg.mentions.users.first() === undefined) {
+      taggedUser = "";
+    } else {
+      taggedUser = msg.mentions.users.first();
+    }
+
+    let yoMamaValue = await getYomama();
+    let reply = yoMamaValue + ` ${taggedUser}`;
+    msg.channel.send(reply);
+  }
+
   if (command === "insult2") {
     let getInsult = async () => {
-      let response = await axios.get("https://evilinsult.com/generate_insult.php?lang=en&type=json");
+      let response = await axios.get(
+        "https://evilinsult.com/generate_insult.php?lang=en&type=json"
+      );
       let insult = response.data.insult;
       return insult;
     };
@@ -228,16 +246,19 @@ bot.on("message", async (msg) => {
       let distance = gradDate.getTime() - now.getTime();
 
       let days = Math.floor(distance / (1000 * 60 * 60 * 24));
-      let hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      let hours = Math.floor(
+        (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+      );
       let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
       let seconds = Math.floor((distance % (1000 * 60)) / 1000);
-  
 
       let reply = days + "d " + hours + "h " + minutes + "m " + seconds + "s ";
-      return reply
+      return reply;
     };
-  
-   msg.channel.send("Time left until senior graduation: " + graduationCountdown());
+
+    msg.channel.send(
+      "Time left until senior graduation: " + graduationCountdown()
+    );
   }
   if (command === "8ball" && args.length >= 0) {
     let get8ball = async () => {
