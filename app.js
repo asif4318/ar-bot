@@ -6,6 +6,8 @@ const http = require("http");
 const fs = require("fs");
 const axios = require("axios");
 const prefix = "$";
+const autoGenDates = require('./dates');
+console.log(autoGenDates)
 
 const server = http.createServer((req, res) => {
   res.writeHead(200, { "content-type": "text/html" });
