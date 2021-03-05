@@ -20,6 +20,16 @@ module.exports = {
             "Generates time until PHU's senior graduation (On Jun 1st, 2021)",
         },
         {
+          name: "$compliment {@user}",
+          value:
+            "Generates a compliment with the ability to be directed at a specified user",
+        },
+        {
+          name: "$inspire {@user}",
+          value:
+            "Generates an inspirational quote with the ability to be directed at a specified user",
+        },
+        {
           name: "$insult {@user}",
           value:
             "Generates insult with the ability to be directed at a specified user",
