@@ -38,6 +38,10 @@ module.exports = {
           value: "Generates a dad joke",
         },
         {
+          name: "$8ball",
+          value: "Generates a magic 8ball response",
+        },
+        {
           name: "$meme",
           value: "Fetches a meme",
         },
