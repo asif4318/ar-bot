@@ -1,0 +1,17 @@
+{
+  "prefix": "*",
+  "token": "DISCORD-BOT-TOKEN12455",
+  "startOfSemester": "January 20, 2021",
+  "endOfSemester": "June 09, 2021",
+  "arOffset": "7",
+  "semesterHolidays": [
+    "2_15_2021",
+    "2_16_2021",
+    "2_17_2021",
+    "2_17_2021",
+    "2_18_2021",
+    "3_1_2021",
+    "3_2_2021",
+    "4_31_2021"
+  ]
+}
