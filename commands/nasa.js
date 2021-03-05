@@ -13,6 +13,6 @@ module.exports = {
     };
 
     let nasaValue = await getNasa();
-    msg.channel.send({ files: [nasaValue] });
+    message.channel.send({ files: [nasaValue] });
   },
 };
