@@ -4,102 +4,34 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>AR BOT</title>
+    <title>3D Animation Card</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./style.css" />
   </head>
   <body>
-    <h1>This is the splash page for AR Bot</h1>
-    <button><a href="https://discord.com/api/oauth2/authorize?client_id=809791355370471486&permissions=248896&scope=bot"><h2>Add Bot</h2></a></a></button>
-    <button onclick="changeDemo()">Test</button>
-
-    <p id="demo">Demo</p>
-
-    <script>
-      const MarchHolidays = [15, 16, 17, 18, 19];
-      const AprilHolidays = [1, 2];
-      const MayHolidays = [31];
-      const JuneHolidays = [
-        10,
-        11,
-        12,
-        13,
-        14,
-        15,
-        16,
-        17,
-        18,
-        19,
-        20,
-        21,
-        22,
-        23,
-        24,
-        25,
-        26,
-        27,
-        28,
-        29,
-        30,
-      ];
-
-      const arRotation = [
-        "A 1/2",
-        "B 1/2",
-        "C 1/2",
-        "A 4/5",
-        "B 4/5",
-        "C 4/5",
-        "A 6/7",
-        "B 6/7",
-        "C 6/7",
-      ];
-
-      const holidays = [
-        MarchHolidays,
-        AprilHolidays,
-        MayHolidays,
-        JuneHolidays,
-      ];
-
-      getSchoolDaysInMonth = (year, month, blockOutDates) => {
-        const days = [];
-        let date = new Date(year, month);
-        while (date.getMonth() === month) {
-          if (
-            ![0, 6].includes(date.getDay()) &&
-            !blockOutDates.includes(date.getDate())
-          )
-            days.push(month + "_" + date.getDate());
-          date.setDate(date.getDate() + 1);
-        }
-        return days;
-      };
-
-      let monthArray = ["January", "February", "March", "April", "May", "June"];
-
-      getSchoolDaysInSemester = () => {
-        let array = [];
-        for (let i = 2; i < monthArray.length; i++) {
-          array = array.concat(getSchoolDaysInMonth(2021, i, holidays[i - 2]));
-        }
-        return array;
-      };
-
-      function appendAR() {
-        let appendedDays = [];
-        let semesterDays = getSchoolDaysInSemester();
-        for (let i = 0; i < semesterDays.length; i++) {
-          appendedDays.push(
-            semesterDays[i] + "*" + arRotation[(i + 8) % arRotation.length]
-          );
-        }
-        return appendedDays;
-      }
-
-      console.log(appendAR());
-
-      function changeDemo() {
-        document.getElementById("demo").innerHTML = appendAR();
-      }
-    </script>
+    <div class="container">
+      <div class="card">
+        <div class="car">
+          <div class="circle"></div>
+          <img src="./arBot.png" />
+        </div>
+        <div class="info">
+          <h1 class="title">IB Bot</h1>
+          <h3>Returns the AR, Session #, and Date.</h3>
+          <div class="purchase">
+            <button>
+              <a
+                href="https://discord.com/api/oauth2/authorize?client_id=809791355370471486&permissions=248896&scope=bot"
+                >Get Bot</a>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="./app.js"></script>
   </body>
 </html>
