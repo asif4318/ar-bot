@@ -12,6 +12,7 @@ generateSchoolDaysForSemester = {
     "B 6/7",
     "C 6/7",
   ],
+  rotationDays: ["A", "B", "C"],
   allSchoolDays: function (start, end, blockOutDates) {
     for (
       var arr = [], dt = new Date(start);
@@ -42,7 +43,8 @@ generateSchoolDaysForSemester = {
       values[i] = {
         date: z[i],
         ar: this.arRotation[(i + arOffset) % this.arRotation.length],
-        session: 1 + Math.floor(i / 3),
+        session: Math.floor(i / 3),
+        rotationDay: this.rotationDays[(i+2) % 3],
       };
     }
     return values;
@@ -61,9 +63,8 @@ function arDateReply() {
     timeNow.getMonth() + "_" + timeNow.getDate() + "_" + timeNow.getFullYear();
   infoNow = z.find((z) => z.date === timeNowDayDate);
   
-  split = infoNow.ar.split(" ");
-  rotationDay = split[0];
-  replyContent = `The rotation day is: ${rotationDay}. The session is ${infoNow.session}. The AR period is ${infoNow.ar}.`;
+  
+  replyContent = `The rotation day is: ${infoNow.rotationDay}. The session is ${infoNow.session}. The AR period is ${infoNow.ar}.`;
   return replyContent;
 }
 
