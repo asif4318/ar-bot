@@ -20,6 +20,11 @@ module.exports = {
             "Generates time until PHU's senior graduation (On Jun 1st, 2021)",
         },
         {
+          name: "$graduation2",
+          value:
+            "Generates days until PHU's senior graduation excluding holidays and weekends (On Jun 1st, 2021)",
+        },
+        {
           name: "$compliment {@user}",
           value:
             "Generates a compliment with the ability to be directed at a specified user",
