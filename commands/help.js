@@ -69,6 +69,10 @@ module.exports = {
           value: "Fetches a dog image",
         },
         {
+          name: "$duck",
+          value: "Fetches a duck image",
+        },
+        {
           name: "$nasa",
           value: "Fetches a NASA's astronomy picture of the day",
         },
