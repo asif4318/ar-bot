@@ -51,5 +51,8 @@ module.exports = {
     } else if (args[0] === "ted") {
       message.channel.send(birthdayCountdown("06/11"))
     }
+    else if (args[0] === "ishi") {
+      message.channel.send(birthdayCountdown("03/20"))
+    }
   },
 };

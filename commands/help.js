@@ -11,8 +11,8 @@ module.exports = {
       .setDescription("A bot originally designed for IB students.")
       .addFields(
         {
-          name: "$ar",
-          value: "Generates the current day's AR period",
+          name: "$ar [tomorrow]",
+          value: "Generates the current day's AR period. If tomorrow argument is passed ($ar tomorrow) than tomorrow's AR will be returned.",
         },
         {
           name: "$graduation",
@@ -23,6 +23,11 @@ module.exports = {
           name: "$graduation2",
           value:
             "Generates days until PHU's senior graduation excluding holidays and weekends (On Jun 1st, 2021)",
+        },
+        {
+          name: "$birthday [person-name]",
+          value:
+            "Generates days until a specified member of the lunchtimes birthday",
         },
         {
           name: "$compliment {@user}",
