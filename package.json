@@ -5,6 +5,9 @@
   "repository": "https://github.com/techiphyte76/ar-bot.git",
   "author": "techiphyte76 <77113884+techiphyte76@users.noreply.github.com>",
   "license": "MIT",
+  "scripts": {
+    "start": "nodemon app.js"
+  },
   "dependencies": {
     "axios": "^0.21.1",
     "cron": "^1.8.2",
@@ -14,5 +17,8 @@
     "g-i-s": "^2.1.6",
     "node-fetch": "^2.6.1",
     "path": "^0.12.7"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7"
   }
 }
