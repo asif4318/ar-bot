@@ -24,9 +24,9 @@ module.exports = {
     } else if (args[0] === "asif") {
       message.channel.send(graduationCountdown("06/25"));
     } else if (args[0] === "kenna") {
-      message.channel.send(graduationCountdown("05/08"))
+      message.channel.send(graduationCountdown("05/08"));
     } else if (args[0] === "basia") {
-      message.channel.send(graduationCountdown("02/27"))
+      message.channel.send(graduationCountdown("02/27"));
     } else if (args[0] === "rachel") {
       message.channel.send(graduationCountdown("01/30"))
     } else if (args[0] === "nick") {
@@ -47,6 +47,8 @@ module.exports = {
       message.channel.send(graduationCountdown("09/09"))
     } else if (args[0] === "raymond") {
       message.channel.send(graduationCountdown("05/23"))
+    } else if (args[0] === "ted") {
+      message.channel.send(graduationCountdown("06/11"))
     }
   },
 };

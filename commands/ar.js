@@ -1,4 +1,9 @@
-const { arOffset, startOfSemester, endOfSemester, semesterHolidays} = require("../config.json");
+const {
+  arOffset,
+  startOfSemester,
+  endOfSemester,
+  semesterHolidays
+} = require("../config.json");
 
 generateSchoolDaysForSemester = {
   arRotation: [
@@ -13,11 +18,9 @@ generateSchoolDaysForSemester = {
     "C 6/7",
   ],
   rotationDays: ["A", "B", "C"],
-  allSchoolDays: function (start, end, blockOutDates) {
+  allSchoolDays: function(start, end, blockOutDates) {
     for (
-      var arr = [], dt = new Date(start);
-      dt <= end;
-      dt.setDate(dt.getDate() + 1)
+      var arr = [], dt = new Date(start); dt <= end; dt.setDate(dt.getDate() + 1)
     ) {
       if (
         ![0, 6].includes(dt.getDay()) &&
@@ -27,16 +30,16 @@ generateSchoolDaysForSemester = {
       ) {
         arr.push(
           new Date(dt).getMonth() +
-            "_" +
-            new Date(dt).getDate() +
-            "_" +
-            new Date(dt).getFullYear()
+          "_" +
+          new Date(dt).getDate() +
+          "_" +
+          new Date(dt).getFullYear()
         );
       }
     }
     return arr;
   },
-  appendSessionAR: function (start, end, blockOutDates) {
+  appendSessionAR: function(start, end, blockOutDates) {
     var values = [];
     z = this.allSchoolDays(start, end, blockOutDates);
     for (var i = 0; i < z.length; i++) {
@@ -44,7 +47,7 @@ generateSchoolDaysForSemester = {
         date: z[i],
         ar: this.arRotation[(i + arOffset) % this.arRotation.length],
         session: Math.floor((i / 3) + 1),
-        rotationDay: this.rotationDays[(i+2) % 3],
+        rotationDay: this.rotationDays[(i + 2) % 3],
       };
     }
     return values;
@@ -52,29 +55,37 @@ generateSchoolDaysForSemester = {
 
 };
 
-function arDateReply() {
+function arDateReply(checkTomorrow) {
   let z = generateSchoolDaysForSemester.appendSessionAR(
     new Date(startOfSemester),
     new Date(endOfSemester),
     semesterHolidays,
   );
   const timeNow = new Date();
+  if (checkTomorrow === true) {
+    timeNow.setDate(timeNow.getDate() + 1);
+    console.log("arDate reply tomorrow " + timeNow.getDate())
+  }
   timeNowDayDate =
     timeNow.getMonth() + "_" + timeNow.getDate() + "_" + timeNow.getFullYear();
   infoNow = z.find((z) => z.date === timeNowDayDate);
-  
-  
+
+
   replyContent = `The rotation day is: ${infoNow.rotationDay}. The session is ${infoNow.session}. The AR period is ${infoNow.ar}.`;
   return replyContent;
 }
 
-function monthDateReply() {
+function monthDateReply(checkTomorrow) {
   const timeNow = new Date();
   replyContent = `I am AR Bot and the date is:  ${timeNow.toLocaleDateString()}. The time is: ${timeNow.toLocaleTimeString()}`;
+  if (checkTomorrow === true) {
+    timeNow.setDate(timeNow.getDate() + 1);
+    replyContent = `I am AR Bot and tomorrow's date is:  ${timeNow.toLocaleDateString()}. The time is: ${timeNow.toLocaleTimeString()}`;
+  }
   return replyContent;
 }
 
-function getCurrentDayDate() {
+function getCurrentDayDate(checkTomorrow) {
   currentTime = new Date();
   x = currentTime.getMonth();
   y = currentTime.getDate();
@@ -85,14 +96,21 @@ function getCurrentDayDate() {
 module.exports = {
   name: "ar",
   description: "Gives AR, Date, and Session",
-  execute(message) {
+  execute(message, args) {
     const timeNow = new Date();
+    let isTomorrow = false;
+    if (args[0] === "tomorrow") {
+      timeNow.setDate(timeNow.getDate() + 1);
+      console.log("tomorrow");
+      isTomorrow = true;
+    }
     timeNowDayDate =
       timeNow.getMonth() +
       "_" +
       timeNow.getDate() +
       "_" +
       timeNow.getFullYear();
+    console.log(timeNowDayDate + "test");
     let z = generateSchoolDaysForSemester.appendSessionAR(
       new Date(startOfSemester),
       new Date(endOfSemester),
@@ -106,11 +124,11 @@ module.exports = {
     ) {
       message.reply("There is no school today, please enjoy your weekend!");
     } else if (getCurrentDayDate() !== undefined) {
-      message.reply(arDateReply());
-      console.log(arDateReply());
+      message.reply(arDateReply(isTomorrow));
+      console.log(arDateReply(isTomorrow));
       console.log(getDayInfo);
-      message.reply(monthDateReply());
-      console.log(monthDateReply());
+      message.reply(monthDateReply(isTomorrow));
+      console.log(monthDateReply(isTomorrow));
     }
   },
 };
