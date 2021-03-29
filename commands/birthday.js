@@ -3,7 +3,7 @@ let graduationCountdown = (bDay) => {
   const gradDate = new Date(`${bDay}/${now.getFullYear()}`);
   let distance = gradDate.getTime() - now.getTime();
   console.log(distance);
-  if (distance < 0) {
+  if (distance < 0 === true) {
     const gradeDate = new Date(`${bDay}/${(now.getFullYear() + 1)}`);
   }
   let days = Math.floor(distance / (1000 * 60 * 60 * 24));
