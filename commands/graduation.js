@@ -22,5 +22,7 @@ module.exports = {
     message.channel.send(
       "Time left until senior graduation: " + graduationCountdown()
     );
+    let now = new Date();
+    console.log(`${this.name}: ${graduationCountdown()} | ${now.toLocaleDateString() + " " + now.toLocaleTimeString()}`)
   },
 };
