@@ -47,7 +47,7 @@ generateSchoolDaysForSemester = {
         date: z[i],
         ar: this.arRotation[(i + arOffset) % this.arRotation.length],
         session: Math.floor((i / 3) + 1),
-        rotationDay: this.rotationDays[(i + 2) % 3],
+        rotationDay: this.rotationDays[(i + 1) % 3],
       };
     }
     return values;
