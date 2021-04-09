@@ -4,7 +4,7 @@ const {
   endOfSemester,
   semesterHolidays,
   rotationDayOffset,
-} = require("../config.json");
+} = require("./config.json");
 
 generateSchoolDaysForSemester = {
   arRotation: [
