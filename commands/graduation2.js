@@ -28,7 +28,7 @@ module.exports = {
       return arr;
     }
     var date1 = new Date();
-    var date2 = new Date("06/09/2021");
+    var date2 = new Date("06/01/2021");
     let z = schoolDays(date1, date2, semesterHolidays);
     console.log(z);
     message.channel.send("School Days left until senior graduation (excluding holidays and weekends): " + z.length);
