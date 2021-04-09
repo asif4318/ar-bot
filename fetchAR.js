@@ -3,7 +3,7 @@ const {
   startOfSemester,
   endOfSemester,
   semesterHolidays,
-  rotationDayOffset
+  rotationDayOffset,
 } = require("../config.json");
 
 generateSchoolDaysForSemester = {
@@ -19,9 +19,11 @@ generateSchoolDaysForSemester = {
     "C 6/7",
   ],
   rotationDays: ["A", "B", "C"],
-  allSchoolDays: function(start, end, blockOutDates) {
+  allSchoolDays: function (start, end, blockOutDates) {
     for (
-      var arr = [], dt = new Date(start); dt <= end; dt.setDate(dt.getDate() + 1)
+      var arr = [], dt = new Date(start);
+      dt <= end;
+      dt.setDate(dt.getDate() + 1)
     ) {
       if (
         ![0, 6].includes(dt.getDay()) &&
@@ -31,41 +33,40 @@ generateSchoolDaysForSemester = {
       ) {
         arr.push(
           new Date(dt).getMonth() +
-          "_" +
-          new Date(dt).getDate() +
-          "_" +
-          new Date(dt).getFullYear()
+            "_" +
+            new Date(dt).getDate() +
+            "_" +
+            new Date(dt).getFullYear()
         );
       }
     }
     return arr;
   },
-  appendSessionAR: function(start, end, blockOutDates) {
+  appendSessionAR: function (start, end, blockOutDates) {
     var values = [];
     z = this.allSchoolDays(start, end, blockOutDates);
     for (var i = 0; i < z.length; i++) {
       values[i] = {
         date: z[i],
         ar: this.arRotation[(i + arOffset) % this.arRotation.length],
-        session: Math.floor((i / 3)),
+        session: Math.floor(i / 3),
         rotationDay: this.rotationDays[(i + rotationDayOffset) % 3],
       };
     }
     return values;
   },
-
 };
 
 function arDateReply(checkTomorrow) {
   let semesterSchoolDays = generateSchoolDaysForSemester.appendSessionAR(
     new Date(startOfSemester),
     new Date(endOfSemester),
-    semesterHolidays,
+    semesterHolidays
   );
   const timeNow = new Date();
   if (checkTomorrow === true) {
     timeNow.setDate(timeNow.getDate() + 1);
-    console.log("arDate reply tomorrow " + timeNow.getDate())
+    console.log("arDate reply tomorrow " + timeNow.getDate());
   }
   timeNowDayDate =
     timeNow.getMonth() + "_" + timeNow.getDate() + "_" + timeNow.getFullYear();
@@ -93,23 +94,11 @@ function getCurrentDayDate(checkTomorrow) {
 }
 
 module.exports = {
-  name: "ar",
-  description: "Gives AR, Date, and Session",
-  execute(message, args) {
+  ar: function() {
     const timeNow = new Date();
     let isTomorrow = false;
-    if (args[0] === "tomorrow") {
-      timeNow.setDate(timeNow.getDate() + 1);
-      console.log("tomorrow");
-      isTomorrow = true;
-    }
     timeNowDayDate =
-      timeNow.getMonth() +
-      "_" +
-      timeNow.getDate() +
-      "_" +
-      timeNow.getFullYear();
-    console.log(timeNowDayDate + "test");
+    timeNow.getMonth() + "_" + timeNow.getDate() + "_" + timeNow.getFullYear();
     let z = generateSchoolDaysForSemester.appendSessionAR(
       new Date(startOfSemester),
       new Date(endOfSemester),
@@ -121,13 +110,10 @@ module.exports = {
       timeNow.getDay() === 0 ||
       getDayInfo == undefined
     ) {
-      message.reply("There is no school today, please enjoy your weekend!");
+      return ("There is no school today, please enjoy your weekend!");
     } else if (getCurrentDayDate() !== undefined) {
-      message.reply(arDateReply(isTomorrow));
-      console.log(arDateReply(isTomorrow));
-      console.log(getDayInfo);
-      message.reply(monthDateReply(isTomorrow));
-      console.log(monthDateReply(isTomorrow));
+     return [arDateReply(isTomorrow), monthDateReply(isTomorrow)];
     }
-  },
-};
+  }
+}
+
