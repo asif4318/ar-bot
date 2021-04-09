@@ -16,6 +16,22 @@ for (const file of commandFiles) {
 
 client.once('ready', () => {
 	console.log('Ready!');
+	const guildIDs = client.guilds.cache.map(g => g); //Obtains array of all guild IDs (servers)
+	// Finds all channels with name 'ar-bot' and get ID
+	let allChannels = client.channels.cache.map(c => c);
+	let arBotChannels = [];
+	for (i=0; i < allChannels.length; i++) {
+		if (allChannels[i].name === 'ar-bot') {
+			arBotChannels.push(allChannels[i].id)
+		}
+	}
+	//console.log(annoucementsChannel.id);
+	console.log(arBotChannels);
+	for (i=0; i < arBotChannels.length; i++) {
+		client.channels.cache.get(arBotChannels[i]).send('Hello here!')
+	}
+	//test = client.commands.get('ar').execute(null, null);
+	//console.log(test);
 });
 
 client.on('message', message => {

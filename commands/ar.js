@@ -2,7 +2,8 @@ const {
   arOffset,
   startOfSemester,
   endOfSemester,
-  semesterHolidays
+  semesterHolidays,
+  rotationDayOffset
 } = require("../config.json");
 
 generateSchoolDaysForSemester = {
@@ -47,7 +48,7 @@ generateSchoolDaysForSemester = {
         date: z[i],
         ar: this.arRotation[(i + arOffset) % this.arRotation.length],
         session: Math.floor((i / 3)),
-        rotationDay: this.rotationDays[(i + 1) % 3],
+        rotationDay: this.rotationDays[(i + rotationDayOffset) % 3],
       };
     }
     return values;
@@ -56,7 +57,7 @@ generateSchoolDaysForSemester = {
 };
 
 function arDateReply(checkTomorrow) {
-  let z = generateSchoolDaysForSemester.appendSessionAR(
+  let semesterSchoolDays = generateSchoolDaysForSemester.appendSessionAR(
     new Date(startOfSemester),
     new Date(endOfSemester),
     semesterHolidays,
@@ -68,19 +69,17 @@ function arDateReply(checkTomorrow) {
   }
   timeNowDayDate =
     timeNow.getMonth() + "_" + timeNow.getDate() + "_" + timeNow.getFullYear();
-  infoNow = z.find((z) => z.date === timeNowDayDate);
-
-
+  infoNow = semesterSchoolDays.find((e) => e.date === timeNowDayDate);
   replyContent = `The rotation day is: ${infoNow.rotationDay}. The session is ${infoNow.session}. The AR period is ${infoNow.ar}.`;
   return replyContent;
 }
 
 function monthDateReply(checkTomorrow) {
   const timeNow = new Date();
-  replyContent = `I am AR Bot and the date is:  ${timeNow.toLocaleDateString()}. The time is: ${timeNow.toLocaleTimeString()}`;
+  replyContent = `I am AR Bot and the date is:  ${timeNow.toLocaleDateString()}. The time is: ${timeNow.toLocaleTimeString()}.`;
   if (checkTomorrow === true) {
     timeNow.setDate(timeNow.getDate() + 1);
-    replyContent = `I am AR Bot and tomorrow's date is:  ${timeNow.toLocaleDateString()}. The time is: ${timeNow.toLocaleTimeString()}`;
+    replyContent = `I am AR Bot and tomorrow's date is:  ${timeNow.toLocaleDateString()}. The time is: ${timeNow.toLocaleTimeString()}.`;
   }
   return replyContent;
 }
