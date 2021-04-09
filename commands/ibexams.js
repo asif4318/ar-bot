@@ -31,6 +31,6 @@ module.exports = {
     var date2 = new Date("05/03/2021");
     let z = schoolDays(date1, date2, semesterHolidays);
     console.log(z);
-    message.channel.send("School Days left until senior graduation (excluding holidays and weekends): " + z.length);
+    message.channel.send("School Days left until IB exams begin on May 3rd (excluding holidays and weekends): " + z.length);
   },
 };
