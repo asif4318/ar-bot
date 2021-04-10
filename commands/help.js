@@ -42,18 +42,20 @@ module.exports = {
         },
         {
           name: "$inspire2 {@user}",
-          value:
-            "Sends more inspiration quotes - in image format",
+          value: "Sends more inspiration quotes - in image format",
         },
         {
           name: "$ibexams",
-          value:
-            "Counts days left til IB exams (May 3rd, 2021)",
+          value: "Counts days left til IB exams (May 3rd, 2021)",
         },
         {
           name: "$insult {@user}",
           value:
             "Generates insult with the ability to be directed at a specified user",
+        },
+        {
+          name: "$info",
+          value: "Fetches info about bot",
         },
         {
           name: "$insult2 {@user}",
@@ -99,7 +101,9 @@ module.exports = {
         }
       )
       .setTimestamp()
-      .setImage('https://ar-bot-splash-page-git-main-techiphyte76.vercel.app/arBot.png')
+      .setImage(
+        "https://ar-bot-splash-page-git-main-techiphyte76.vercel.app/arBot.png"
+      )
       .setURL("https://ar-bot-splash-page-git-main-techiphyte76.vercel.app/")
       .setFooter("Bot Made by Asif");
 

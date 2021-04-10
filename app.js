@@ -24,6 +24,9 @@ for (const file of commandFiles) {
 // Commands to be performed when the bot is initialized
 client.once("ready", () => {
   console.log("Ready!");
+
+  client.user.setActivity(`Listening to ${prefix}help`);
+
   const fetchGuilds = () => client.guilds.cache.map((g) => g); //Obtains array of all guilds (servers)
   const fetchGuildsName = () => client.guilds.cache.map((g) => g.name);
   console.log(fetchGuildsName());
