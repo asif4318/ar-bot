@@ -1,4 +1,4 @@
-const Discord = require('discord.js');
+const Discord = require("discord.js");
 
 module.exports = {
   name: "help",
@@ -12,7 +12,8 @@ module.exports = {
       .addFields(
         {
           name: "$ar [tomorrow]",
-          value: "Generates the current day's AR period. If tomorrow argument is passed ($ar tomorrow) than tomorrow's AR will be returned.",
+          value:
+            "Generates the current day's AR period. If tomorrow argument is passed ($ar tomorrow) than tomorrow's AR will be returned.",
         },
         {
           name: "$graduation",
@@ -38,6 +39,16 @@ module.exports = {
           name: "$inspire {@user}",
           value:
             "Generates an inspirational quote with the ability to be directed at a specified user",
+        },
+        {
+          name: "$inspire2 {@user}",
+          value:
+            "Sends more inspiration quotes - in image format",
+        },
+        {
+          name: "$ibexams",
+          value:
+            "Counts days left til IB exams (May 3rd, 2021)",
         },
         {
           name: "$insult {@user}",
@@ -88,6 +99,8 @@ module.exports = {
         }
       )
       .setTimestamp()
+      .setImage('https://ar-bot-splash-page-git-main-techiphyte76.vercel.app/arBot.png')
+      .setURL("https://ar-bot-splash-page-git-main-techiphyte76.vercel.app/")
       .setFooter("Bot Made by Asif");
 
     message.channel.send(embed);
