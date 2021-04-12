@@ -14,7 +14,7 @@ module.exports = {
 
     let nasaValue = await getNasa();
     try {
-    message.channel.send({ files: [nasaValue] });
+    message.channel.send(nasaValue);
     let now = new Date()
     console.log(`$nasa: ${nasaValue} | ${now.toLocaleDateString() + " " + now.toLocaleTimeString()}`)
     } catch (error) {
