@@ -3,7 +3,7 @@ const Discord = require("discord.js"); //Discord API wrapper
 const { prefix, token } = require("./config.json"); //Import the prefix (ex: *, !, $) from the config file
 // and token required to authorize the bot
 const { ar } = require("./fetchAR.js"); //AR command to execute on cron job
-const cron = require("cron"); // Timing library to send AR message at specified time every weekday.
+const cron = require("cron"); //Timing library to send AR message at specified time every weekday.
 
 //Initializing Disocrd Client
 const client = new Discord.Client();
@@ -25,11 +25,12 @@ for (const file of commandFiles) {
 client.once("ready", () => {
   console.log("Ready!");
 
+  //Sets listening to help status on Discord
   client.user.setActivity(`Listening to ${prefix}help`);
 
   const fetchGuilds = () => client.guilds.cache.map((g) => g); //Obtains array of all guilds (servers)
   const fetchGuildsName = () => client.guilds.cache.map((g) => g.name);
-  console.log(fetchGuildsName());
+  
   // Fetches list of all System Channels
   const fetchSystemChannels = () => {
     systemChannels = [];
@@ -57,22 +58,37 @@ client.once("ready", () => {
     let arBotChannels = [];
     for (i = 0; i < allChannels().length; i++) {
       if (allChannels()[i].name === "ar-bot") {
-        arBotChannels.push(allChannels()[i].id);
+        arBotChannels.push(allChannels()[i]);
       }
     }
     return arBotChannels;
   };
 
+  /*function testARChannels() {
+    for (const value of fetchArBotChannels()) {
+      try {
+        value.send(ar()[0]);
+        value.send(ar()[1]);
+        console.log('Sent AR message');
+      } catch (err) {
+        console.log(err);
+      }
+    }
+  }
+
+  testARChannels();*/ 
+
   //Schedule cron job to send an AR messsage at 9:00am every weekday
   let arJob = new cron.CronJob(
     "0 0 9 * * 1-5",
     function () {
-      for (i = 0; i < fetchArBotChannels().length; i++) {
+      for (const channel of fetchArBotChannels()) {
         try {
-          client.channels.cache.get(fetchArBotChannels()[i]).send(ar()[0]);
-          client.channels.cache.get(fetchArBotChannels()[i]).send(ar()[1]);
+          channel.send(ar()[0]);
+          channel.send(ar()[1]);
+          console.log('Sent AR message');
         } catch (err) {
-          console.log("Error");
+          console.log(err);
         }
       }
     },
