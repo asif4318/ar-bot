@@ -16,6 +16,11 @@ module.exports = {
             "Generates the current day's AR period. If tomorrow argument is passed ($ar tomorrow) than tomorrow's AR will be returned.",
         },
         {
+          name: "$pastpapers",
+          value:
+            "Sends link to past IB Exams",
+        },
+        {
           name: "$graduation",
           value:
             "Generates time until PHU's senior graduation (On Jun 1st, 2021)",
