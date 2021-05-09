@@ -58,7 +58,7 @@ let findGuildPrefix = (guildId) => {
 client.on("message", async (message) => {
   let guildID = message.guild.id;
   let prefix = findGuildPrefix(guildID);
-  
+
   console.log(prefix);
 
   if (!message.content.startsWith(prefix) || message.author.bot) return;
