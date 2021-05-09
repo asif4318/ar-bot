@@ -1,0 +1,17 @@
+{
+  "name": "ar-bot-rebooted",
+  "version": "1.0.0",
+  "description": "An upgraded, complete from scratch rewrite of the original IB AR bot concept ",
+  "main": "app.js",
+  "scripts": {
+    "test": "nodemon app.js",
+    "start": "node app.js"
+  },
+  "author": "techiphyte76",
+  "license": "ISC",
+  "dependencies": {
+    "discord.js": "^12.5.3",
+    "nodemon": "^2.0.7",
+    "pg": "^8.6.0"
+  }
+}
