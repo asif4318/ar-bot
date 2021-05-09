@@ -2,17 +2,18 @@ const axios = require("axios");
 
 module.exports = {
   name: "duck",
-  description: "Fetches duck image",
+  description: "Advanced duck search using Google",
   async execute(message) {
-    const url = "https://api.unsplash.com/photos/random/?";
+    apiLink =
+      "https://www.googleapis.com/customsearch/v1?key=AIzaSyDxRGE_aokhglI6ayaYw4hIk6x_ebkHROY&cx=ca71548ca44eba24f&q=ducks&searchType=image";
 
-    let getDuck = async () => {
-      let response = await axios.get("https://api.unsplash.com/photos/random/?client_id=OhXv9AYT50C1KNemBgQj-bifOWG6-y0w-OQ5HLSvje4&query=duck");
-      let duck = response.data.urls.regular;
-      return duck;
-    };
-
-    let duckValue = await getDuck();
-    message.channel.send(duckValue);
+    random = Math.floor(Math.random() * 30);
+    random2 = Math.floor(Math.random() * 10);
+    if (random > 10) {
+      apiLink += `&start=${random}`;
+    }
+    response = await axios.get(apiLink);
+    let items = response.data.items;
+    message.channel.send(items[random2].link)
   },
 };
