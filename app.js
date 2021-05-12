@@ -80,7 +80,7 @@ client.once('ready', () => {
 
     //Schedule cron job to send an AR messsage at 9:00am every weekday
     let morningCronTime = "0 0 9 * * 1-5"
-    let nightCronTime = "0 0 21 * * 1-5"
+    let nightCronTime = "0 0 19 * * 1-5"
 
     let arJob = new cron.CronJob(
         nightCronTime,
