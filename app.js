@@ -2,7 +2,7 @@ const fs = require('fs'); // Reads filesystem to see config.json
 const Discord = require('discord.js'); //Discord API wrapper
 const { prefix, token } = require('./config.json'); //Import the prefix (ex: *, !, $) from the config file
 // and token required to authorize the bot
-const { ar } = require('./fetchAR.js'); //AR command to execute on cron job
+const { arFunction } = require('./fetchAR.js'); //AR command to execute on cron job
 const cron = require('cron'); //Timing library to send AR message at specified time every weekday.
 
 //Initializing Disocrd Client
@@ -79,13 +79,16 @@ client.once('ready', () => {
   testARChannels();*/
 
     //Schedule cron job to send an AR messsage at 9:00am every weekday
+    let morningCronTime = "0 0 9 * * 1-5"
+    let nightCronTime = "0 0 21 * * 1-5"
+
     let arJob = new cron.CronJob(
-        '0 0 9 * * 1-5',
+        nightCronTime,
         function () {
             for (const channel of fetchArBotChannels()) {
                 try {
-                    channel.send(ar()[0]);
-                    channel.send(ar()[1]);
+                    channel.send(arFunction(true)[0]);
+                    channel.send(arFunction(true)[1]);
                     console.log('Sent AR message');
                 } catch (err) {
                     console.log(err);
