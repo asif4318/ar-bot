@@ -71,7 +71,7 @@ generateSemesterSchoolDays = {
     },
     monthDateReply: function (checkTomorrow) {
         const timeNow = new Date();
-        replyContent = `I am AR Bot and the date is: ${timeNow.toLocaleDateString()}. The time is: ${timeNow.toLocaleDateString()}`;
+        replyContent = `I am AR Bot and the date is: ${timeNow.toLocaleDateString()}. The time is: ${timeNow.toLocaleTimeString()}`;
         if (checkTomorrow === true) {
             timeNow.setDate(timeNow.getDate() + 1);
             replyContent = `I am AR Bot and tomorrow's date is: ${timeNow.toLocaleDateString()}. The time is: ${timeNow.toLocaleTimeString()}`;
