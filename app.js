@@ -1,6 +1,6 @@
 const fs = require('fs'); // Reads filesystem to see config.json
 const Discord = require('discord.js'); //Discord API wrapper
-const { prefix, token } = require('./config.json'); //Import the prefix (ex: *, !, $) from the config file
+const { prefix, token, endOfSemester } = require('./config.json'); //Import the prefix (ex: *, !, $) from the config file
 // and token required to authorize the bot
 const { arFunction } = require('./fetchAR.js'); //AR command to execute on cron job
 const cron = require('cron'); //Timing library to send AR message at specified time every weekday.
@@ -79,19 +79,24 @@ client.once('ready', () => {
   testARChannels();*/
 
     //Schedule cron job to send an AR messsage at 9:00am every weekday
-    let morningCronTime = "0 0 9 * * 1-5"
-    let nightCronTime = "0 0 19 * * 1-5"
+    let morningCronTime = '0 0 9 * * 1-5';
+    let nightCronTime = '0 0 19 * * 0-4';
 
-    let arJob = new cron.CronJob(
+    const arJob = new cron.CronJob(
         nightCronTime,
         function () {
-            for (const channel of fetchArBotChannels()) {
-                try {
-                    channel.send(arFunction(true)[0]);
-                    channel.send(arFunction(true)[1]);
-                    console.log('Sent AR message');
-                } catch (err) {
-                    console.log(err);
+            let currentDay = new Date();
+            if (currentDay() <= new Date(endOfSemester)) {
+                return;
+            } else {
+                for (const channel of fetchArBotChannels()) {
+                    try {
+                        channel.send(arFunction(true)[0]);
+                        channel.send(arFunction(true)[1]);
+                        console.log('Sent AR message');
+                    } catch (err) {
+                        console.log(err);
+                    }
                 }
             }
         },
