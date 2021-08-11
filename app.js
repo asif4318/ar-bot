@@ -86,7 +86,7 @@ client.once('ready', () => {
         nightCronTime,
         function () {
             let currentDay = new Date();
-            if (currentDay() <= new Date(endOfSemester)) {
+            if (currentDay <= new Date(endOfSemester)) {
                 return;
             } else {
                 for (const channel of fetchArBotChannels()) {
