@@ -3,4 +3,4 @@
 Functionality of this bot was later expanded to include a variety of fun commands such as telling jokes, birthday reminders, and sending memes.
 Written in NodeJS using the DiscordJS library
 
-
+## Setup
