@@ -4,4 +4,10 @@ Functionality of this bot was later expanded to include a variety of fun command
 Written in NodeJS using the DiscordJS library
 
 ## Setup
-Clone this project and navigate into the project directory. Then create a config.json based on config.json.example. Insert the start and end dates of the semester as well as any semester holidays in the for of MM_DD_YY.
+Clone this project and navigate into the project directory. Then create a config.json based on config.json.example. 
+Set the prefix. The prefix determines which prefix the bot will respond to. For example if the prefix is '*', then '*ar' will trigger the ar command.
+Next, insert your discord bot token. 
+Insert the start and end dates of the semester in the form of "Month day, YYYY". 
+Next insert any semester holidays in the for of MM_DD_YY in an array.
+Run the bot by running 'node app.js'
+
