@@ -1,5 +1,6 @@
 # AR Bot
 ## A Discord Bot originally intended for the discord server LunchTime Server Edition to notify participants of their academic rotation (AR) period.
+The academic rotation is a 9 day rotating period that is part of the schedule of Palm Harbor University High School's International Baccalaureate Program. 
 Functionality of this bot was later expanded to include a variety of fun commands such as telling jokes, birthday reminders, and sending memes.
 Written in NodeJS using the DiscordJS library
 
